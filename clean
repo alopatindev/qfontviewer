@@ -1,0 +1,6 @@
+#!/bin/bash
+
+PROGRAM="qfontviewer"
+make clean
+rm -vf *.o Makefile* {moc,qrc}_*.cpp ui_*.h $PROGRAM $PROGRAM.pro resources.qrc
+rm -rfv release debug *.Debug *.Release

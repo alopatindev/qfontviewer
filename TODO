@@ -1,0 +1,19 @@
+The next features required:
+ * translate into the other languages
+ * read a folder of fonts, show a folder in the list in the another tab
+ * when subset is activated scroll the CharsTable
+ * make copy/paste from menu work with current widget in current tab
+ * replace configure + qmake with cmake
+ * search by UTF-8 bytes (like 0xc3 0x94)
+ * create regexp validators for every text input widget
+ * make .desktop file for running from DE's menus
+ * up and down press events in the font filter line edit must change cursor in the font list
+ * make CharsTable's cursor controllable by the keyboard
+ * Ctrl+Scroll(Up|Down) in chars table must change font size
+ * drug'n'drop chars from chars table to the other windows' input widgets
+ * get filenames of installed fonts
+ * make it run a little bit faster
+
+Other known bugs and TODOs: egrep -nR '(FIXME|TODO)' src/*
+
+# vim: textwidth=0

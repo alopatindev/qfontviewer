@@ -1,0 +1,4 @@
+Keep the same coding style as the style in the ui_*.h files, that
+Qt UI Compiler generates (4 spaces for indents, the objectNames and the
+ClassNames, etc).
+Also, avoid text lines longer than 80 characters.

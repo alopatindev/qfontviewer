@@ -1,0 +1,19 @@
+If you are using distro with package system you can install this program from
+your repository, if it is available. If it's not or your distro has no package
+system — follow the next steps:
+
+1. Install Qt4 dependencies. There are qt-core and qt-gui packages in the
+Gentoo distro, for example.
+
+2. Install C++ compiler from GNU Compilers Collection (gcc).
+
+3. Open terminal emulator, change current directory to this, where the README
+file is and type the next commands:
+
+./configure
+make
+sudo cp qfontviewer /usr/local/bin
+
+4. To run the program just type
+
+qfontviewer

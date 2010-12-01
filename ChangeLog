@@ -1,0 +1,16 @@
+200X-XX-XX  Lopatin Alexander  <sbar.geek@gmail.com>
+    version 0.0.X
+    selectable and editable QLabels are now having ibeam mouse cursor
+    «system colors everywhere» is disabled by default
+    tooltip in the character table now shows UTF-8 code and «value» is renamed to Unicode
+    categories strings in qchardialog.cpp are moved to CharTable's QMap property instead of switch/case
+    bold and italic buttons are affecting font info tab now
+    CharsTable's scrolling bug fixed
+    file can be opened via drug'n'drop
+    added XML decimal entities in the CharsTable
+
+2009-07-26  Lopatin Alexander  <sbar.geek@gmail.com>
+    version 0.0.1
+    * NEWS: Inital Release
+
+# vim: expandtab:shiftwidth=4:softtabstop=4:tabstop=4:textwidth=0

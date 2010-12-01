@@ -1,0 +1,26 @@
+#!/bin/bash
+
+PROGRAM="qfontviewer"
+VERSION="svn$(svn info | grep 'Revision' | cut -d' ' -f2)"
+PROJECT="${PROGRAM}.pro"
+RESOURCES="resources.qrc"
+
+echo "generating resource file..."
+
+echo "<RCC>
+  <qresource>" > ${RESOURCES}
+for i in icons/* ; do
+    echo "    <file>${i}</file>" >> ${RESOURCES}
+done
+echo "  </qresource>
+</RCC>" >> ${RESOURCES}
+
+echo "generating project files..."
+
+qmake -project "VERSION = ${VERSION}" \
+               'DEFINES += QT_INCLUDE_COMPAT VERSION=\\\"'${VERSION}'\\\"' \
+               "CONFIG += warn_off debug" \
+               "CFLAGS += ${CFLAGS}" \
+               "CXXFLAGS += ${CXXFLAGS}"
+
+qmake
