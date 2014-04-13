@@ -3,16 +3,22 @@ The next features required:
  * read a folder of fonts, show a folder in the list in the another tab
  * when subset is activated scroll the CharsTable
  * make copy/paste from menu work with current widget in current tab
- * replace configure + qmake with cmake
  * search by UTF-8 bytes (like 0xc3 0x94)
  * create regexp validators for every text input widget
  * make .desktop file for running from DE's menus
  * up and down press events in the font filter line edit must change cursor in the font list
  * make CharsTable's cursor controllable by the keyboard
- * Ctrl+Scroll(Up|Down) in chars table must change font size
+ * Ctrl+Scroll(Up|Down) in chars table must change font size (zoom)
+ * navigate to current symbol after zoom
  * drug'n'drop chars from chars table to the other windows' input widgets
  * get filenames of installed fonts
  * make it run a little bit faster
+ * right click on symbol - copy {xml decimal, Unicode...}
+ * remove listview of supported subsets. show as "1,2,3", possibly
+ * about box: 2009—$(date +%Y)
+ * scripts update: compability with Qt5; possibly replace configure + qmake with cmake
+ * ebuilds update
+ * make a mac build
 
 Other known bugs and TODOs: egrep -nR '(FIXME|TODO)' src/*
 
