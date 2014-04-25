@@ -5,19 +5,6 @@
 
 class MainWindow;
 
-static void setupUnixSignalHandlers()
-{
-    struct sigaction sigint, sigterm;
-    sigint.sa_handler = MainWindow::signalsHandler;
-    sigterm.sa_handler = MainWindow::signalsHandler;
-    sigemptyset(&sigint.sa_mask);
-    sigemptyset(&sigterm.sa_mask);
-    sigint.sa_flags = 0;
-    sigterm.sa_flags = 0;
-    sigaction(SIGINT, &sigint, 0);
-    sigaction(SIGTERM, &sigterm, 0);
-}
-
 static void showHelp(const QStringList & args)
 {
     QTextStream qout(stdout);
@@ -35,8 +22,6 @@ Available options:\n\
 
 int main(int argc, char *argv[])
 {
-    setupUnixSignalHandlers();
-
     QApplication app(argc, argv);
 
     QStringList args = app.arguments();
@@ -46,7 +31,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    app.setApplicationName("qfontviewer");
+    app.setApplicationName("QFontViewer");
     app.setApplicationVersion(VERSION);
 
     MainWindow window(args);

@@ -16,7 +16,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 {
     Q_OBJECT
 
-    static MainWindow *mainWindow;
     static QRegExp unicodeRegExp/*, utf8RegExp*/;
     QFontDatabase fontDatabase;
     bool antialiasing, autoMerging, systemColors;
@@ -38,19 +37,21 @@ public:
     QFontDatabase::WritingSystem currentSubset();
     void setCurrentSubset(const QString & subset);
 
-    static void signalsHandler(int unused);
     void updateRecentList();
 
 public slots:
     void makePangram();
     void updateInfo();
-    void about();
     void on_actionOpen_triggered();
     void on_actionCut_triggered();
     void on_actionCopy_triggered();
     void on_actionPaste_triggered();
     void on_actionDelete_triggered();
     void on_actionSettings_triggered();
+    void on_actionRefresh_triggered();
+    void on_actionAbout_triggered();
+    void on_actionAboutQt_triggered();
+    void on_actionExit_triggered();
     void copy(const QString & text);
     void on_copy_clicked();
     void on_charsTable_characterSelected(const QChar & character);
@@ -58,7 +59,7 @@ public slots:
     void recentAction_triggered();
     void updateFontList(bool force = false);
     void forceUpdateFontList() { updateFontList(true); }
-    QString fullFontName(bool noSize = true);
+    const QString & fullFontName(bool noSize = true) const;
     void setFontStyle(const QFont & font);
     void setFontFamily(const QString & family);
     void setFontBold(bool enable);

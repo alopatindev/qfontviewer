@@ -9,14 +9,12 @@
 
 class SettingsDialog;
 
-MainWindow *(MainWindow::mainWindow) = 0;
 QRegExp MainWindow::unicodeRegExp = QRegExp("^u\\+([0-9a-f]{4,})", Qt::CaseInsensitive);
 //QRegExp MainWindow::utf8RegExp = QRegExp("(0x[0-9a-f]*( |))*", Qt::CaseInsensitive);
 
 MainWindow::MainWindow(const QStringList & args, QWidget *parent)
     : QMainWindow(parent)
 {
-    mainWindow = this;
     setupUi(this);
     clipboard = QApplication::clipboard();
     setValidators();
@@ -170,12 +168,14 @@ void MainWindow::saveSettings() const
     s.sync();
 }
 
-QString MainWindow::fullFontName(bool noSize)
+const QString & MainWindow::fullFontName(bool noSize) const
 {
-    return fontStyle.family() + \
-           (fontStyle.bold() ? " " + tr("Bold") : "") + \
-           (fontStyle.italic() ? " " + tr("Italic") : "") + \
-           (noSize ? "" : " " + QString::number(fontStyle.pointSize()));
+    static QString result;
+    result = fontStyle.family() +
+        (fontStyle.bold() ? " " + tr("Bold") : "") +
+        (fontStyle.italic() ? " " + tr("Italic") : "") +
+        (noSize ? "" : " " + QString::number(fontStyle.pointSize()));
+    return result;
 }
 
 void MainWindow::updateRecentList()
@@ -244,7 +244,7 @@ void MainWindow::updateInfo()
 
     fileNameLabel->setText(fileName.isEmpty() ? tr("Unknown") : fileName);
 
-    QList<QFontDatabase::WritingSystem> subs = \
+    QList<QFontDatabase::WritingSystem> subs =
         fontDatabase.writingSystems(fontStyle.family());
     supportedSubsets->clear();
     for (int i = 0; i < subs.size(); ++i)
@@ -262,19 +262,14 @@ void MainWindow::setCurrentSubset(const QString & subset)
     subsets->setCurrentIndex(subsets->findText(subset));
 }
 
-void MainWindow::signalsHandler(int unused)
-{
-    mainWindow->close();
-}
-
-void MainWindow::about()
+void MainWindow::on_actionAbout_triggered()
 {
     QMessageBox::about(this,
         tr("About %1 %2").arg(qApp->applicationName(),
                               qApp->applicationVersion()),
         tr("<b>%1 %2</b><br><br>"
            "%1 is a font viewer with character table.<br>\n"
-           "Copyright (c) 2009 Alexander Lopatin<br>\n"
+           "Copyright (c) 2009-2014 Alexander Lopatin<br>\n"
            "<a href=\"http://qfontviewer.sourceforge.net\">http://qfontviewer.sourceforge.net</a><br>\n\n"
            "<center>This program is released under<br>\n"
            "the terms of the<br>\n"
@@ -282,6 +277,16 @@ void MainWindow::about()
            "Version 3, 29 June 2007</center>")
                 .arg(qApp->applicationName(),
                      qApp->applicationVersion()));
+}
+
+void MainWindow::on_actionAboutQt_triggered()
+{
+    QMessageBox::aboutQt(this);
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    close();
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -317,6 +322,12 @@ void MainWindow::on_actionPaste_triggered()
 
 void MainWindow::on_actionDelete_triggered()
 {
+}
+
+void MainWindow::on_actionRefresh_triggered()
+{
+    forceUpdateFontList();
+    makePangram();
 }
 
 void MainWindow::on_actionSettings_triggered()

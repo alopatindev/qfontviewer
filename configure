@@ -19,9 +19,10 @@ echo "  </qresource>
 echo "generating project files..."
 
 qmake -project "VERSION = ${VERSION}" \
-               'DEFINES += QT_INCLUDE_COMPAT VERSION=\\\"'${VERSION}'\\\"' \
+               'DEFINES += VERSION=\\\"'${VERSION}'\\\"' \
                "CONFIG += warn_off debug" \
                "CFLAGS += ${CFLAGS}" \
                "CXXFLAGS += ${CXXFLAGS}"
+               #'DEFINES += QT_INCLUDE_COMPAT VERSION=\\\"'${VERSION}'\\\"'
 
 qmake

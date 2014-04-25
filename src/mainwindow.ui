@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>811</width>
+    <width>886</width>
     <height>508</height>
    </rect>
   </property>
@@ -14,7 +14,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>qfontviewer</string>
+   <string>QFontViewer</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources.qrc">
@@ -63,8 +63,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>578</width>
-             <height>355</height>
+             <width>574</width>
+             <height>336</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -350,8 +350,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>518</width>
-             <height>518</height>
+             <width>574</width>
+             <height>530</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -480,8 +480,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>811</width>
-     <height>33</height>
+     <width>886</width>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -504,6 +504,7 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -672,7 +673,7 @@
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About</string>
+    <string>About QFontViewer</string>
    </property>
   </action>
   <action name="actionUndo">
@@ -738,6 +739,11 @@
     <string>test</string>
    </property>
   </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -761,38 +767,6 @@
  </resources>
  <connections>
   <connection>
-   <sender>actionExit</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>362</x>
-     <y>276</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionAbout</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>about()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>362</x>
-     <y>276</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>subsets</sender>
    <signal>currentIndexChanged(int)</signal>
    <receiver>MainWindow</receiver>
@@ -800,7 +774,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>158</x>
-     <y>427</y>
+     <y>417</y>
     </hint>
     <hint type="destinationlabel">
      <x>567</x>
@@ -816,7 +790,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>158</x>
-     <y>102</y>
+     <y>101</y>
     </hint>
     <hint type="destinationlabel">
      <x>281</x>
@@ -831,8 +805,8 @@
    <slot>setFontBold(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>468</y>
+     <x>156</x>
+     <y>463</y>
     </hint>
     <hint type="destinationlabel">
      <x>176</x>
@@ -847,8 +821,8 @@
    <slot>setFontItalic(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>158</x>
-     <y>468</y>
+     <x>206</x>
+     <y>463</y>
     </hint>
     <hint type="destinationlabel">
      <x>179</x>
@@ -863,28 +837,12 @@
    <slot>setFontSize(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>305</x>
-     <y>119</y>
+     <x>376</x>
+     <y>127</y>
     </hint>
     <hint type="destinationlabel">
      <x>180</x>
      <y>140</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionRefresh</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>forceUpdateFontList()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>395</x>
-     <y>253</y>
     </hint>
    </hints>
   </connection>
@@ -905,30 +863,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionRefresh</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>makePangram()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>395</x>
-     <y>253</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>goToEdit</sender>
    <signal>textEdited(QString)</signal>
    <receiver>charsTable</receiver>
    <slot>goToChar(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>705</x>
-     <y>119</y>
+     <x>802</x>
+     <y>127</y>
     </hint>
     <hint type="destinationlabel">
      <x>648</x>
@@ -943,8 +885,8 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>654</x>
-     <y>443</y>
+     <x>762</x>
+     <y>445</y>
     </hint>
     <hint type="destinationlabel">
      <x>569</x>

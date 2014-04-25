@@ -3,6 +3,8 @@
 
 #include <QLineEdit>
 #include <QWidget>
+#include <QKeyEvent>
+#include <QMouseEvent>
 
 class LineEditAutoclean : public QLineEdit
 {
