@@ -2,7 +2,7 @@
 
 PROGRAM="qfontviewer"
 #VERSION="svn$(svn info | grep 'Revision' | cut -d' ' -f2)"
-VERSION="git$(git --no-pager log --pretty=oneline | wc -l)"
+VERSION="git$(git --no-pager log --pretty=oneline | wc -l | sed 's/ //g')"
 PROJECT="${PROGRAM}.pro"
 RESOURCES="resources.qrc"
 
@@ -18,11 +18,17 @@ echo "  </qresource>
 
 echo "generating project files..."
 
+CONFIG_LOCAL=
+if [[ $(qmake --version | grep ' Qt version 5') ]]; then
+    CONFIG_LOCAL=qt
+fi
+
 qmake -project "VERSION = ${VERSION}" \
                'DEFINES += VERSION=\\\"'${VERSION}'\\\"' \
-               "CONFIG += warn_off debug" \
+               "CONFIG += warn_off debug ${CONFIG_LOCAL}" \
                "CFLAGS += ${CFLAGS}" \
-               "CXXFLAGS += ${CXXFLAGS}"
+               "CXXFLAGS += ${CXXFLAGS}" \
+               "QT += widgets"
                #'DEFINES += QT_INCLUDE_COMPAT VERSION=\\\"'${VERSION}'\\\"'
 
 qmake

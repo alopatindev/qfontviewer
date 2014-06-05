@@ -4,6 +4,7 @@
 #include <QSettings>
 #include <QFileDialog>
 #include <QFile>
+#include <QMimeData>
 #include <QRegExpValidator>
 #include <QUrl>
 

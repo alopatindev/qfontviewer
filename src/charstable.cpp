@@ -1,6 +1,12 @@
 #include "charstable.h"
-#include <QtGui>
+
 #include <QChar>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
+#include <QtGui>
+#endif
 
 CharsTable::CharsTable(QWidget *parent) : QWidget(parent)
 {
@@ -46,7 +52,11 @@ void CharsTable::initCharCategories()
     categories.insert(QChar::Symbol_Currency, "Symbol currency");
     categories.insert(QChar::Symbol_Modifier, "Symbol modifier");
     categories.insert(QChar::Symbol_Other, "Symbol other");
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    categories.insert(QChar::Other_NotAssigned, "No category");
+#else
     categories.insert(QChar::NoCategory, "No category");
+#endif
 }
 
 QSize CharsTable::sizeHint() const
@@ -132,7 +142,11 @@ void CharsTable::mousePressEvent(QMouseEvent *event)
     QChar qKey = currentChar();
 
     if (event->button() == Qt::LeftButton) {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        if (qKey.category() != QChar::Other_NotAssigned)
+#else
         if (qKey.category() != QChar::NoCategory)
+#endif
             emit characterSelected(qKey);
         update();
     } else if (event->button() == Qt::RightButton) {
