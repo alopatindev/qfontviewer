@@ -198,7 +198,7 @@ void CharsTable::paintEvent(QPaintEvent *event)
     for (uint row = beginRow; row <= endRow; ++row) {
         for (uint column = beginColumn; column <= endColumn; ++column) {
             uint currentKey = row * COLUMNS + column;
-			QString text(CharsTable::textChar(currentKey));
+            QString text(CharsTable::textChar(currentKey));
             painter.setClipRect(column*squareSize, row*squareSize,
                                 squareSize, squareSize);
 
