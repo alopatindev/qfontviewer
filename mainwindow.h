@@ -54,7 +54,7 @@ public slots:
     void on_actionExit_triggered();
     void copy(const QString & text);
     void on_copy_clicked();
-    void on_charsTable_characterSelected(const QChar & character);
+    void on_charsTable_characterSelected(uint character);
     void on_codeSearch_editingFinished();
     void recentAction_triggered();
     void updateFontList(bool force = false);
