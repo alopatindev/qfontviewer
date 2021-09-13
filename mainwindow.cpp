@@ -352,7 +352,7 @@ void MainWindow::on_copy_clicked()
 
 void MainWindow::on_charsTable_characterSelected(uint character)
 {
-	QString text;
+    QString text;
     if (QChar::requiresSurrogates(character)) {
         QChar array[]{QChar::highSurrogate(character), QChar::lowSurrogate(character)};
         text = QString(array, 2);
