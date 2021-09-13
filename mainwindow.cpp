@@ -135,7 +135,7 @@ void MainWindow::loadSettings(bool reload)
 
     QVariant key = s.value("key");
     if (key.isValid())
-        charsTable->goToChar(QChar(key.toInt()));
+        charsTable->goToChar(key.toInt());
 
     QVariant recentList0 = s.value("recentList");
     if (recentList0.isValid()) {
@@ -309,7 +309,7 @@ void MainWindow::on_actionCopy_triggered()
     case 1:
         //text->
     case 2:
-        copy(QString(charsTable->currentChar()));
+        copy(charsTable->currentChar());
     case 3:
         break;
     default:
@@ -350,9 +350,16 @@ void MainWindow::on_copy_clicked()
     copy(copyBuffer->text());
 }
 
-void MainWindow::on_charsTable_characterSelected(const QChar & character)
+void MainWindow::on_charsTable_characterSelected(uint character)
 {
-    copyBuffer->setText(copyBuffer->text() + character);
+    QString text;
+    if (QChar::requiresSurrogates(character)) {
+        QChar array[]{QChar::highSurrogate(character), QChar::lowSurrogate(character)};
+        text = QString(array, 2);
+    } else {
+        text = QChar(character);
+    }
+    copyBuffer->setText(copyBuffer->text() + text);
 }
 
 void MainWindow::on_codeSearch_editingFinished()
@@ -360,7 +367,7 @@ void MainWindow::on_codeSearch_editingFinished()
     const QString & text = codeSearch->text();
     if (unicodeRegExp.indexIn(text) != -1) {
         uint code = unicodeRegExp.cap(1).toInt(0, 16);
-        charsTable->goToChar(QChar(code));
+        charsTable->goToChar(code);
         return;
     }
 

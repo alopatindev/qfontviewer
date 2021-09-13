@@ -22,7 +22,8 @@ class CharsTable : public QWidget
 
     QFont font;
     QFontDatabase::WritingSystem subset;
-    int squareSize, key;
+    int squareSize;
+    uint key;
     bool systemColors;
     CategoryString categories;
 
@@ -37,9 +38,10 @@ public:
     CharsTable(QWidget *parent = 0);
     ~CharsTable();
     QSize sizeHint() const;
+    static QString textChar(uint codepoint);
 
 signals:
-    void characterSelected(const QChar & character);
+    void characterSelected(uint character);
 
 public slots:
     void setFontStyle(const QFont & font);
@@ -48,11 +50,11 @@ public slots:
     void setFontSize(const QString & size) { setFontSize(size.toDouble()); }
     void setSubset(QFontDatabase::WritingSystem subset);
     static QString unicodeChar(uint key);
-    static QString utf8Char(QChar ch);
+    static QString utf8Char(uint ch);
     inline static QString xmlDecimal(uint key, bool escape = false);
-    int currentKey() { return key; }
-    QChar currentChar() { return QChar(key); }
-    void goToChar(const QChar & character);
+    uint currentKey() { return key; }
+    QString currentChar() { return CharsTable::textChar(key); }
+    void goToChar(uint character);
     void goToChar(const QString & character);
     void useSystemColors(bool enable) { systemColors = enable; update(); }
 

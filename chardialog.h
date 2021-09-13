@@ -10,10 +10,10 @@ typedef QMap<QChar::Category, QString> CategoryString;
 
 class CharDialog : public QDialog, Ui::CharDialog
 {
-    QChar ch;
+    uint ch;
 
 public:
-    CharDialog(QChar ch = QChar(), const QString & fontFamily = QString(),
+    CharDialog(uint ch, const QString & fontFamily = QString(),
                const CategoryString & categories = CategoryString(),
                QWidget *parent = 0);
     ~CharDialog();

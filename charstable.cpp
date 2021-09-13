@@ -78,14 +78,14 @@ void CharsTable::setSubset(QFontDatabase::WritingSystem subset)
     this->subset = subset;
 }
 
-void CharsTable::goToChar(const QChar & character)
+void CharsTable::goToChar(uint character)
 {
     QWidget *viewport = qobject_cast<QWidget *>(parent()->parent());
     QScrollArea *scrollArea = qobject_cast<QScrollArea *>(viewport->parent());
     QScrollBar *bar = scrollArea->verticalScrollBar();
 
-    bar->setValue(character.unicode() / COLUMNS * squareSize);
-    key = character.unicode();
+    bar->setValue(character / COLUMNS * squareSize);
+    key = character;
     update();
 }
 
@@ -97,9 +97,9 @@ QString CharsTable::unicodeChar(uint key)
     return "U+" + code;
 }
 
-QString CharsTable::utf8Char(QChar ch)
+QString CharsTable::utf8Char(uint ch)
 {
-    QByteArray bytes = QString(ch).toUtf8();
+    QByteArray bytes = CharsTable::textChar(ch).toUtf8();
     QString utf8Text;
     for (int i = 0; i < bytes.size(); ++i) {
         if (i > 0)
@@ -109,6 +109,16 @@ QString CharsTable::utf8Char(QChar ch)
     return utf8Text;
 }
 
+QString CharsTable::textChar(uint codepoint)
+{
+    if (QChar::requiresSurrogates(codepoint)) {
+        QChar array[]{QChar::highSurrogate(codepoint), QChar::lowSurrogate(codepoint)};
+        return QString(array, 2);
+    } else {
+        return QString(QChar(codepoint));
+    }
+}
+
 inline QString CharsTable::xmlDecimal(uint key, bool escape)
 {
     return QString(escape ? "&amp;#%1;" : "&#%1;").arg(key);
@@ -116,8 +126,9 @@ inline QString CharsTable::xmlDecimal(uint key, bool escape)
 
 void CharsTable::goToChar(const QString & character)
 {
-    if (!character.isEmpty())
-        goToChar(character[0]);
+    QVector<uint> codepoints = character.toUcs4();
+    if (!codepoints.isEmpty())
+        goToChar(codepoints[0]);
 }
 
 void CharsTable::mouseMoveEvent(QMouseEvent *event)
@@ -125,27 +136,27 @@ void CharsTable::mouseMoveEvent(QMouseEvent *event)
     QPoint widgetPosition = mapFromGlobal(event->globalPos());
     uint key = (widgetPosition.y() / squareSize) * COLUMNS +
                widgetPosition.x() / squareSize;
-    QChar ch(key);
+    QString ch(CharsTable::textChar(key));
     QString text = QString::fromLatin1("<p>Character: <span style=\"\
 font-size: 24pt; font-family: %1\">%2</span></p>"
 "Unicode: %3<br/>"
 "UTF-8: %4<br/>"
 "XML decimal: %5")
         .arg(font.family(), ch,
-             unicodeChar(key), utf8Char(ch), xmlDecimal(key, true));
+             unicodeChar(key), utf8Char(key), xmlDecimal(key, true));
     QToolTip::showText(event->globalPos(), text, this);
 }
 
 void CharsTable::mousePressEvent(QMouseEvent *event)
 {
     key = (event->y() / squareSize) * COLUMNS + event->x() / squareSize;
-    QChar qKey = currentChar();
+    uint qKey = currentKey();
 
     if (event->button() == Qt::LeftButton) {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-        if (qKey.category() != QChar::Other_NotAssigned)
+        if (QChar::category(qKey) != QChar::Other_NotAssigned)
 #else
-        if (qKey.category() != QChar::NoCategory)
+        if (QChar::category(qKey) != QChar::NoCategory)
 #endif
             emit characterSelected(qKey);
         update();
@@ -184,9 +195,10 @@ void CharsTable::paintEvent(QPaintEvent *event)
     if (!systemColors)
         painter.setPen(QPen(Qt::black));
 
-    for (int row = beginRow; row <= endRow; ++row) {
-        for (int column = beginColumn; column <= endColumn; ++column) {
-            int currentKey = row * COLUMNS + column;
+    for (uint row = beginRow; row <= endRow; ++row) {
+        for (uint column = beginColumn; column <= endColumn; ++column) {
+            uint currentKey = row * COLUMNS + column;
+            QString text(CharsTable::textChar(currentKey));
             painter.setClipRect(column*squareSize, row*squareSize,
                                 squareSize, squareSize);
 
@@ -196,9 +208,9 @@ void CharsTable::paintEvent(QPaintEvent *event)
                                  QPalette().highlight());
 
             painter.drawText(column*squareSize + (squareSize / 2) -
-                             fontMetrics.width(QChar(currentKey))/2,
+                             fontMetrics.boundingRect(text).width()/2,
                              row*squareSize + 4 + fontMetrics.ascent(),
-                             QString(QChar(currentKey)));
+                             text);
         }
     }
 

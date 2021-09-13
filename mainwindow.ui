@@ -278,7 +278,7 @@
              </size>
             </property>
             <property name="maxLength">
-             <number>1</number>
+             <number>2</number>
             </property>
            </widget>
           </item>
@@ -752,7 +752,7 @@
    <header>charstable.h</header>
    <container>1</container>
    <slots>
-    <slot>goToChar(QChar)</slot>
+    <slot>goToChar(uint)</slot>
     <slot>goToChar(QString)</slot>
    </slots>
   </customwidget>
