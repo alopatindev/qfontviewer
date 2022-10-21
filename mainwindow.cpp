@@ -206,24 +206,26 @@ void MainWindow::makePangram()
 {
     jobStart(tr("Making pangram..."));
 
-    QString numbers;
-    for (int i = 0; i <= 9; ++i)
-        numbers += QString::number(i);
-
-    QString s = QString("<span style=\"font-size:16pt\">%1</span><br/><br/>"
-        "<span style=\"font-size:12pt\">"
-        "abcdefghjklmnopqrstuvwxyz<br>ABCDEFGHJKLMNOPQRSTUVWXYZ<br/>"
-        "%2.:,;(*!?')<br/>"
-        "<br/></span>").arg(fullFontName(), numbers);
+    QString s = QString("<span style=\"font-size:16pt\">%1</span><br /><br />"
+      "The Quick Brown Fox Jumps Over The Lazy Dog<br />"
+      "Příliš žluťoučký kůň úpěl ďábelské ódy.<br />"
+      "Pijamalı hasta yağız şoföre çabucak güvendi<br />"
+      "Ξεσκεπάζω την ψυχοφθόρα σας βδελυγμία.<br />"
+      "Друг мой эльф! Яшке б свёз птиц южных чащ!<br />"
+      "밤새 컴퓨터로 요약을 해치우면 좋겠다<br />"
+      "とりなくこゑす ゆめさませ みよあけわたる ひんかしを そらいろはえて おきつへに ほふねむれゐぬ もやのうち<br />"
+      "نص حكيم له سر قاطع وذو شأن عظيم مكتوب على ثوب أخضر ومغلف بجلد أزرق<br />"
+      "עטלף אבק נס דרך מזגן שהתפוצץ כי חם.<br />"
+      "သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေးဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။<br />"
+      "0123456789.:,;{[(*!?')]}<br />"
+      "</span><br />").arg(fullFontName());
 
     QList<int> sizes;
     sizes << 8 << 9 << 10 << 12 << 14 << 16 << 18 << 20 << 22 << 24 << 26
           << 28 << 36;
     for(int i = 0; i < sizes.size(); ++i) {
-        s += QString("<span style=\"font-size:%1pt\">%2 %3</span><br/>")
-                 .arg(QString::number(sizes[i]),
-                      tr("The quick brown fox jumps over the lazy dog."),
-                      numbers);
+        s += QString("<span style=\"font-size:%1pt\">The quick brown fox jumps over the lazy dog. 0123456789</span><br/>")
+                 .arg(QString::number(sizes[i]));
     }
 
     QString htmlText = QString("<!DOCTYPE HTML PUBLIC " \
