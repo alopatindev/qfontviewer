@@ -471,16 +471,11 @@ void MainWindow::setFontItalic(bool enable)
     setFontStyle(newFont);
 }
 
-void MainWindow::setFontSize(qreal size)
-{
-    QFont newFont = fontStyle;
-    newFont.setPointSizeF(size);
-    setFontStyle(newFont);
-}
-
 void MainWindow::setFontSize(const QString & size)
 {
-    setFontSize(size.toDouble());
+    QFont newFont = fontStyle;
+    newFont.setPointSizeF(size.toDouble());
+    setFontStyle(newFont);
 }
 
 void MainWindow::setFontAutoMerging(bool enable)

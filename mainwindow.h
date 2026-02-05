@@ -64,7 +64,6 @@ public slots:
     void setFontFamily(const QString & family);
     void setFontBold(bool enable);
     void setFontItalic(bool enable);
-    void setFontSize(qreal size);
     void setFontSize(const QString & size);
     void setFontAutoMerging(bool enable);
     void setFontAntialiasing(bool enable);
