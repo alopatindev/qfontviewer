@@ -8,7 +8,7 @@
 #include <QFontDatabase>
 #include <QMap>
 #include <QClipboard>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QDropEvent>
 #include <QDragEnterEvent>
 
@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 {
     Q_OBJECT
 
-    static QRegExp unicodeRegExp/*, utf8RegExp*/;
+    static QRegularExpression unicodeRegExp/*, utf8RegExp*/;
     QFontDatabase fontDatabase;
     bool antialiasing, autoMerging, systemColors;
     QFont fontStyle;
@@ -64,7 +64,6 @@ public slots:
     void setFontFamily(const QString & family);
     void setFontBold(bool enable);
     void setFontItalic(bool enable);
-    void setFontSize(qreal size);
     void setFontSize(const QString & size);
     void setFontAutoMerging(bool enable);
     void setFontAntialiasing(bool enable);

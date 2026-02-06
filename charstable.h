@@ -46,8 +46,7 @@ signals:
 public slots:
     void setFontStyle(const QFont & font);
     void setFontFamily(const QString & family) { font.setFamily(family); }
-    void setFontSize(qreal size) { font.setPointSizeF(size); refresh(); }
-    void setFontSize(const QString & size) { setFontSize(size.toDouble()); }
+    void setFontSize(const QString & size) { font.setPointSizeF(size.toDouble()); refresh(); }
     void setSubset(QFontDatabase::WritingSystem subset);
     static QString unicodeChar(uint key);
     static QString utf8Char(uint ch);

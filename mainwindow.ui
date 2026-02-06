@@ -832,7 +832,7 @@
   </connection>
   <connection>
    <sender>fontSize</sender>
-   <signal>activated(QString)</signal>
+   <signal>textActivated(QString)</signal>
    <receiver>MainWindow</receiver>
    <slot>setFontSize(QString)</slot>
    <hints>
@@ -902,7 +902,6 @@
   <slot>setFontBold(bool)</slot>
   <slot>setFontItalic(bool)</slot>
   <slot>setFontSize(QString)</slot>
-  <slot>setFontSize(int)</slot>
   <slot>forceUpdateFontList()</slot>
   <slot>makePangram()</slot>
  </slots>

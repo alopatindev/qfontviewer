@@ -5,13 +5,13 @@
 #include <QFileDialog>
 #include <QFile>
 #include <QMimeData>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
 #include <QUrl>
 
 class SettingsDialog;
 
-QRegExp MainWindow::unicodeRegExp = QRegExp("^u\\+([0-9a-f]{4,})", Qt::CaseInsensitive);
-//QRegExp MainWindow::utf8RegExp = QRegExp("(0x[0-9a-f]*( |))*", Qt::CaseInsensitive);
+QRegularExpression MainWindow::unicodeRegExp = QRegularExpression("^u\\+([0-9a-f]{4,})", QRegularExpression::CaseInsensitiveOption);
+//QRegularExpression MainWindow::utf8RegExp = QRegularExpression("(0x[0-9a-f]*( |))*", QRegularExpression::CaseInsensitiveOption);
 
 MainWindow::MainWindow(const QStringList & args, QWidget *parent)
     : QMainWindow(parent)
@@ -74,12 +74,12 @@ void MainWindow::processArgs(const QStringList & args)
 
 void MainWindow::setValidators()
 {
-    codeSearch->setValidator(new QRegExpValidator(
-        //QRegExp("(^u\\+[0-9a-f]{4,}|(0x[0-9a-f]*( |))*|[0-9]*)",
-        QRegExp("(^u\\+[0-9a-f]{4,})",
-                Qt::CaseInsensitive), this));
+    codeSearch->setValidator(new QRegularExpressionValidator(
+        //QRegularExpression("(^u\\+[0-9a-f]{4,}|(0x[0-9a-f]*( |))*|[0-9]*)",
+        QRegularExpression("(^u\\+[0-9a-f]{4,})",
+                QRegularExpression::CaseInsensitiveOption), this));
 
-    fontSize->setValidator(new QRegExpValidator(QRegExp("^([0-9]{1,})"), this));
+    fontSize->setValidator(new QRegularExpressionValidator(QRegularExpression("^([0-9]{1,})"), this));
 }
 
 void MainWindow::loadSettings(bool reload)
@@ -367,8 +367,9 @@ void MainWindow::on_charsTable_characterSelected(uint character)
 void MainWindow::on_codeSearch_editingFinished()
 {
     const QString & text = codeSearch->text();
-    if (unicodeRegExp.indexIn(text) != -1) {
-        uint code = unicodeRegExp.cap(1).toInt(0, 16);
+    QRegularExpressionMatch m = unicodeRegExp.match(text);
+    if (m.hasMatch()) {
+        uint code = m.captured(1).toInt(0, 16);
         charsTable->goToChar(code);
         return;
     }
@@ -470,16 +471,11 @@ void MainWindow::setFontItalic(bool enable)
     setFontStyle(newFont);
 }
 
-void MainWindow::setFontSize(qreal size)
-{
-    QFont newFont = fontStyle;
-    newFont.setPointSizeF(size);
-    setFontStyle(newFont);
-}
-
 void MainWindow::setFontSize(const QString & size)
 {
-    setFontSize(size.toDouble());
+    QFont newFont = fontStyle;
+    newFont.setPointSizeF(size.toDouble());
+    setFontStyle(newFont);
 }
 
 void MainWindow::setFontAutoMerging(bool enable)
